@@ -24,8 +24,7 @@ class WeekExtracter:
             week_number = elem[0].isocalendar()[1]
             self.week_list[week_number].append(elem)
 
-        for elem in self.week_list:
-            print(elem)
+        return self.week_list
 
 
 

@@ -5,6 +5,7 @@ from helper.csv_parser import CSVParser
 from helper.extract_by_week import WeekExtracter
 from helper.background_resizer import BKResizer
 from helper.title_writer import TitleWriter
+from helper.game_writer import GameWriter
 
 import datetime
 
@@ -31,8 +32,13 @@ if __name__ == "__main__":
     my_csv = CSVParser("Ressources/schedule.csv")
     my_image = BKResizer("Ressources/background.jpg")
     my_week_list = WeekExtracter(my_csv.get_list())
-    my_week_list.get_list_parsed()
-    background_path = my_image.get_img_path()
-    my_title_writer = TitleWriter(background_path)
+    background = my_image.image
+    background_title = TitleWriter(background)
+    for elem in my_week_list.get_list_parsed():
+        if len(elem) > 1:
+            my_game_writer = GameWriter(background_title.image, elem, 7)
+
+    #Last line to close the image
+    my_image.image.close()
 
 
