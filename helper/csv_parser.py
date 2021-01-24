@@ -15,7 +15,6 @@ class CSVParser:
             reader = csv.reader(file, delimiter=',')
             my_csv_list = list(reader)
             for elem in my_csv_list:
-                print(elem)
                 elem[0] = datetime.strptime(elem[0] + ' ' + elem[1], '%d.%m.%Y %Hh%M')
 
         return my_csv_list

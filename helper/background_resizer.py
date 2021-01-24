@@ -19,7 +19,12 @@ class BKResizer:
         self.image = img.resize((self.BASE_WIDTH, height_size), Image.ANTIALIAS)
         self.new_path = os.path.splitext(self.base_path)[0]+"_resized"+".jpg"
         self.image.save(self.new_path)
+
+        image_transparent = Image.new('RGBA', (self.BASE_WIDTH, height_size), (0, 0, 0, 0))
+        image_transparent.paste(self.image, (0, 0))
+        self.image = image_transparent
         #self.image.close()
+
 
     def __init__(self, path):
         self.base_path = path
