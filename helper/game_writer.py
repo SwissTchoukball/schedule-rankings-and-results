@@ -3,15 +3,18 @@ from PIL import ImageFont
 from PIL import ImageDraw
 from PIL import Image
 
+from helper.day_writer import DayWriter
+
 import os
 import math
 import datetime
 import calendar
 
+
 week_day_name_fr = {'Monday' : "Lundi", 'Tuesday' : "Mardi", 'Wednesday' : "Mercredi", 'Thursday' : "Jeudi",
                  'Friday' : "Vendredi", 'Saturday' : "Samedi", 'Sunday' : "Dimanche"}
 
-week_day = ['Monday', 'Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
+week_day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
 max_size_string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 
@@ -23,7 +26,10 @@ class GameWriter:
     BASE_POSITION_X_2 = 580
     BASE_POSITION_Y_2 = 150
 
-    BASE_POSITIONS = [(50, 150),(50, 280),(50, 410),(50, 540),(580, 150),(580, 355),(580, 540)]
+    BASE_DAY_HEIGHT = 100
+    BASE_DAY_WIDTH  = 500
+
+    BASE_POSITIONS = [(50, 150), (50, 280), (50, 410), (50, 540), (580, 150), (580, 355), (580, 540)]
 
     LINE_LENGTH = 450
     SPACE_BTW = 80
@@ -96,23 +102,26 @@ class GameWriter:
         elif nb_days == 7:
             #easiest way, to show days without any games
             for idx, day in enumerate(week_day):
-                print(idx, day)
-                self.__print_day(week_day_name_fr[day], self.week_list[idx], self.BASE_POSITIONS[idx][0], self.BASE_POSITIONS[idx][1])
+                print(idx, day, self.BASE_POSITIONS[idx])
+                width = self.BASE_DAY_WIDTH
+                height = self.BASE_DAY_HEIGHT
+                self.image_day = DayWriter(week_day_name_fr[day], self.week_list[idx], [] , height, width)
+
+                self.image.paste(self.image_day.image, self.BASE_POSITIONS[idx], mask=self.image_day.image)
+
+                #self.__print_day(week_day_name_fr[day], self.week_list[idx], self.BASE_POSITIONS[idx][0], self.BASE_POSITIONS[idx][1])
         else:
             print("else")
-
-        #print(game_list)
-        #for idx, elem in enumerate(game_list):
-            #    date = elem[0]
-            #    day_name_fr = week_day_name_fr[calendar.day_name[date.weekday()]]
-            #    date_str = date.strftime("%d.%m.%Y")
-        #    self.__print_day(day_name_fr + " " + date_str, idx)
 
 
         self.image.show()
 
         #save copy of image here
         self.new_path = "Ressources/"+"Week"+"_"+str(self.week_number)+".jpg"
+
+        if self.image.mode in ("RGBA", "P"):
+            self.image = self.image.convert("RGB")
+
         self.image.save(self.new_path, quality=100, subsampling=0)
 
         self.image.close()
