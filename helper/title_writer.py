@@ -18,13 +18,15 @@ class TitleWriter:
         self.title_w, self.title_h = myFont.getsize("Swiss Tchoukball")
         d1.text((self.BASE_POSITION_X, self.BASE_POSITION_Y), "Swiss Tchoukball", font=myFont, fill=(255, 0, 0))
         myFont = ImageFont.truetype('Ressources/FloraStd-Bold.ttf', 40)
-        self.subtitle_w, self.subtitle_h = myFont.getsize("Matchs de la semaine")
-        d1.text((self.title_w - self.subtitle_w, self.BASE_POSITION_Y+self.title_h), "Matchs de la semaine", font=myFont, fill=(0, 0, 0))
+        self.subtitle_w, self.subtitle_h = myFont.getsize(self.txt)
+        #d1.text((self.title_w - self.subtitle_w, self.BASE_POSITION_Y+self.title_h), self.txt, font=myFont, fill=(0, 0, 0))
+        d1.text((self.BASE_POSITION_X, self.BASE_POSITION_Y+self.title_h), self.txt, font=myFont, fill=(0, 0, 0))
 
-        self.image.show()
+        #self.image.show()
 
-    def __init__(self, img):
+    def __init__(self, img, txt):
         self.image = img
+        self.txt = txt
         self.__print_title()
 
     def get_new_path(self):

@@ -8,7 +8,7 @@ class CSVParser:
         self.path = path
 
 
-    def get_list(self):
+    def get_list_schedule(self):
         my_csv_list = []
 
         with open(self.path, newline='') as file:
@@ -16,6 +16,15 @@ class CSVParser:
             my_csv_list = list(reader)
             for elem in my_csv_list:
                 elem[0] = datetime.strptime(elem[0] + ' ' + elem[1], '%d.%m.%Y %Hh%M')
+
+        return my_csv_list
+
+    def get_list_ranking(self):
+        my_csv_list = []
+
+        with open(self.path, newline='') as file:
+            reader = csv.reader(file, delimiter=',')
+            my_csv_list = list(reader)
 
         return my_csv_list
 
