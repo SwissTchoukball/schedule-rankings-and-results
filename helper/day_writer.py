@@ -43,7 +43,6 @@ class DayWriter:
 
     def __init__(self, text_title, date, game_list, size_h, size_w):
         self.image = Image.new("RGBA", (size_w, size_h), (255, 255, 255, 200))
-        self.image.show()
         self.draw = ImageDraw.Draw(self.image)
 
         self.__print_day(text_title, date, 0, 0)
@@ -53,9 +52,8 @@ class DayWriter:
 if __name__ == "__main__":
     datetime_object = datetime.datetime.now()
     list = [1, 2, 3]
+
     day_writer = DayWriter("Lundi", datetime_object, list, 200, 200)
-    print(type(day_writer))
-    print(type(day_writer.image))
     day_writer.image.show()
 
 

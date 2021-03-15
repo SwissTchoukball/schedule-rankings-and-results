@@ -102,11 +102,10 @@ class GameWriter:
         elif nb_days == 7:
             #easiest way, to show days without any games
             for idx, day in enumerate(week_day):
-                print(idx, day, self.BASE_POSITIONS[idx])
                 width = self.BASE_DAY_WIDTH
                 height = self.BASE_DAY_HEIGHT
-                self.image_day = DayWriter(week_day_name_fr[day], self.week_list[idx], [] , height, width)
 
+                self.image_day = DayWriter(week_day_name_fr[day], self.week_list[idx], game_list , height, width)
                 self.image.paste(self.image_day.image, self.BASE_POSITIONS[idx], mask=self.image_day.image)
 
                 #self.__print_day(week_day_name_fr[day], self.week_list[idx], self.BASE_POSITIONS[idx][0], self.BASE_POSITIONS[idx][1])
